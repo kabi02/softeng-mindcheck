@@ -1,19 +1,29 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+import Li from './components/Li';
+
 export default function Header() {
     return(
-        <div className="flex flex-row py-7 px-16 items-center justify-center">
-            <div className="order-1">
+        <div className="flex lg:flex-row flex-col lg:py-4 xl:px-16 px-0 justify-between">
+            <div className=" flex justify-between lg:w-auto w-[90%] lg:m-9 mx-9 my-5 items-center">
                 <img src="./assets/logo.png" alt="" />
+                {/* <!-- Hamburger Icon --> */}
+                <div className="lg:hidden">
+                    <button className="navbar-burger flex items-center text-black p-3">
+                        <FontAwesomeIcon icon={faBars} className='sm:text-3xl text-xl text-white pr-9'/>
+                    </button>
+                </div>
             </div>
-            <div className="order-2 px-16 text-lg">
-                <ul className="flex flex-row font-open-sans gap-16 text-white">
-                    <li>Scoring Guide</li>
-                    <li>Specialized Tests</li>
-                    <li>About Us</li>
-                    <li>Resources</li>
+            <div className="w-full order-2 text-lg flex lg:flex-row flex-col justify-between xl:justify-center items-center text-center xl:gap-16 gap-7 lg:p-9 mx-auto">
+                <ul className="flex lg:flex-row flex-col font-open-sans xl:gap-16 lg:gap-7 gap-1 text-white">
+                    <Li text='Scoring Guide'/>
+                    <Li text='Specialized Tests'/>
+                    <Li text='About Us'/>
+                    <Li text='Resources'/>
                 </ul>
-            </div>
-            <div className="order-2">
-                <button type="button" className="py-3 px-7 rounded-full bg-white font-open-sans font-bold">Take the Test</button>
+                <div className="order-2 max-lg:mb-10">
+                    <button type="button" className="py-3 px-7 rounded-full bg-white font-open-sans font-bold">Take the Test</button>
+                </div>
             </div>
         </div>
     )

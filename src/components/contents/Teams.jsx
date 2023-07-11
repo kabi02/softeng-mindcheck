@@ -1,6 +1,6 @@
 import Layout from '../Layout'
+import Title from '../Title'
 import Card from '../Card'
-
 
 // images of the team
 import team1 from '../../assets/teams/ken.png'
@@ -11,9 +11,7 @@ import team4 from '../../assets/teams/lian.png'
 export default function Homepage() {
     return (
         <Layout>
-        <div className="items-center py-10 justify-center max-w-[80%] mx-auto"> 
-            <h1 className="sm:text-3xl text-xl font-bold text-center">TEAMS</h1>
-        </div>
+        <Title> TEAMS </Title>
         <div className='sm:px-20 px-10 flex flex-wrap gap-10 pb-24 sm:mx-auto  justify-center'>
             {/* cards of each team */}
             <Card

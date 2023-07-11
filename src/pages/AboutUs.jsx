@@ -1,5 +1,5 @@
 import Header from '../Header';
-import Teams from '../components/subpages/Teams'
+import Teams from '../components/contents/Teams'
 
 function AboutUs() {
 

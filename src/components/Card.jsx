@@ -1,3 +1,4 @@
+// This component was used in Teams.jsx
 
 // icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

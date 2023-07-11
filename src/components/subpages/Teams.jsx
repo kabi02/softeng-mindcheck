@@ -35,7 +35,7 @@ export default function Homepage() {
                 name = 'Kirby Billones'
                 email = 'mailto:kbillones98@gmail.com'
                 fb = 'https://www.facebook.com/kirbyharold.billones'
-                linkedin = ''
+                linkedin = 'www.linkedin.com/in/kirby-harold-billones-104aa4282'
             />
             <Card
                 img = {team4}

@@ -7,7 +7,7 @@ import Li from './components/Li';
 
 export default function Header() {
     return(
-        <div className="flex lg:flex-row flex-col lg:py-4 xl:px-16 px-0 justify-between">
+        <div className="flex lg:flex-row flex-col  xl:px-16 px-0 justify-between">
             <div className=" flex justify-between lg:w-auto w-[90%] lg:m-9 mx-9 my-5 items-center">
                 <Link to='/'><img src={img} alt="" /></Link>
                 {/* <!-- Hamburger Icon --> */}

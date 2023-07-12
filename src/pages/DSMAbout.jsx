@@ -5,7 +5,7 @@ import Header from '../Header'
 export default function DSMAbout() {
   return (
     <div>
-        {/* <Header/> */}
+        <Header/>
         <AboutDSM5/>
     </div>
   )

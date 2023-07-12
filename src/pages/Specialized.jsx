@@ -1,11 +1,12 @@
 import Header from '../Header';
+import TestList from '../components/contents/TestList'
 
 function Specialized() {
 
     return (
       <div>
-        <Header />
-        WAZZAP Specialized
+        {/* <Header /> */}
+        <TestList/>
       </div>
     )
   }

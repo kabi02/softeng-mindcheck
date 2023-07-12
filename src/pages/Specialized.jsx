@@ -5,7 +5,7 @@ function Specialized() {
 
     return (
       <div>
-        {/* <Header /> */}
+        <Header />
         <TestList/>
       </div>
     )

@@ -4,6 +4,7 @@ import './index.css'
 
 // pages
 import App from './App.jsx'
+import DSMAbout from './pages/DSMAbout'
 import Scoring from './pages/Scoring.jsx'
 import Specialized from './pages/Specialized.jsx'
 import AboutUs from './pages/AboutUs.jsx'
@@ -14,14 +15,15 @@ import {
   RouterProvider,
   Route,
 } from 'react-router-dom'
-{/* <Li text='Scoring Guide' link='/scoring-guide'/>
-<Li text='Specialized Tests' link='/specialized-tests'/>
-<Li text='About Us' link='/about-us'/>
-<Li text='Resources' link='/resources'/> */}
+
 const router =  createBrowserRouter([
   {
     path:"/",
     element: <App/>
+  },
+  {
+    path:"what-is-dsm-5-tr",
+    element: <DSMAbout/>
   },
   {
     path:"scoring-guide",

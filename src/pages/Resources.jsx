@@ -5,7 +5,7 @@ function Resources() {
 
     return (
       <div>
-        <Header />
+        <Header/>
         <Directory/>
       </div>
     )

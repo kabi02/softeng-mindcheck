@@ -5,11 +5,12 @@ import img from '../../assets/homepage_gfx_2.png'
 import {ModalSignIn} from '../ModalAuth'
 
 function AboutDSM5() {
-  // for the status if the model is showing
-  const [showModal, setShowModal] = useState(false);
+  // define a state variable for modal type
+  const [modalType, setModalType] = useState("signin");
 
-  function handleClick() {
-    setShowModal((prev) => !prev);
+  // define a function that changes the modal type
+  function handleSwitch(type) {
+    setModalType(type);
   }
 
   return (
@@ -23,7 +24,7 @@ function AboutDSM5() {
             Your test results will be based on your responses and will provide you insightful insights  regarding your mental health. The result will also indicate the areas that may require additional  analysis or attention </p>
         </div>
         {/* The button for opening modal */}
-        <ModalSignIn show={showModal}/>
+        <ModalSignIn modalType={modalType} handleSwitch={handleSwitch} />
     </div>
     </Layout>
   )

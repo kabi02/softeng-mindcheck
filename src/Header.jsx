@@ -25,7 +25,7 @@ export default function Header() {
                     <Li text='Resources' link='/resources'/>
                 </ul>
                 <div className="order-2 max-lg:mb-10">
-                    <button type="button" className="py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200">Take the Test</button>
+                    <Link to='/what-is-dsm-5-tr'><button type="button" className="py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200">Take the Test</button></Link>
                 </div>
             </div>
         </div>

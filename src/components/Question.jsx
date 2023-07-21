@@ -3,9 +3,9 @@ import React from "react";
 // Define a component that takes a question prop
 function Question({ question }) {
   return (
-    <div className="my-5" key={question.name}>
+    <div className="my-9" key={question.name}>
       <label className="sm:text-lg text-sm">{question.text}</label>
-      <div className="flex flex-wrap items-center gap-5 mx-auto justify-center mb-2 mt-4">
+      <div className="flex flex-wrap items-center gap-5 mx-auto justify-center mb-2 my-4">
         None
         <input
           type="radio"

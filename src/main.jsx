@@ -10,6 +10,7 @@ import Specialized from './pages/Specialized.jsx'
 import AboutUs from './pages/AboutUs.jsx'
 import Resources from './pages/Resources.jsx'
 import DSMTest from './pages/DSMTest'
+import Result from './pages/Result'
 
 import {
   createBrowserRouter,
@@ -45,6 +46,10 @@ const router =  createBrowserRouter([
   {
     path:"dsm-5-tr/test",
     element: <DSMTest/>
+  },
+  {
+    path:"dsm-5-tr/test/result",
+    element: <Result/>
   }
 ])
 

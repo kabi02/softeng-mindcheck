@@ -127,59 +127,106 @@ export default function Test() {
   const handleSubmit = (event) => {
     // Prevent the default browser behavior
     event.preventDefault();
-    // Loop through the questions and get the selected values
+    let total = 0;
     questions.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
+      total += Number(selected);
     });
+    let average = total / questions.length;
+    console.log(`The average value for Part I is: ${average}`);
+
     questions2.forEach((question) => {
-      const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
+      const selected = event.target[question.name].value;      // 
+      console.log(`The average value for Part II is: ${selected}`);
     });
+
+    let total3 = 0;
     questions3.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
+      total3 += Number(selected);
     });    
+    let average3 = total3 / questions3.length;
+    console.log(`The average value for Part III is: ${average3}`);
+
+    let total4 = 0;
     questions4.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
+      total4 += Number(selected);      
     }); 
+    let average4 = total4 / questions4.length;
+    console.log(`The average value for Part IV is: ${average4}`);
+
+    let total5 = 0;
     questions5.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
+      total5 += Number(selected);      
     });
+    let average5 = total5 / questions5.length;
+    console.log(`The average value for Part V is: ${average5}`);
+
+    let total6 = 0;
     questions6.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
-    });    
+      total6 += Number(selected);      
+    }); 
+    let average6 = total6 / questions6.length;
+    console.log(`The average value for Part VI is: ${average6}`); 
+
+    let total7 = 0;
     questions7.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
-    });   
+      total7 += Number(selected);      
+    });
+    let average7 = total7 / questions7.length;
+    console.log(`The average value for Part VII is: ${average7}`);
+
+    let total8 = 0;
     questions8.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
-    });  
+      total8 += Number(selected);      
+    }); 
+    let average8 = total8 / questions8.length;
+    console.log(`The average value for Part VIII is: ${average8}`);
+
+    let total9 = 0;
     questions9.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
-    });      
+      total9 += Number(selected);      
+    });   
+    let average9 = total9 / questions9.length;
+    console.log(`The average value for Part IX is: ${average9}`);
+
+    let total10 = 0;
     questions10.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
-    });    
+      total10 += Number(selected);      
+    });
+    let average10 = total10 / questions10.length;
+    console.log(`The average value for Part X is: ${average10}`); 
+
+    let total11 = 0;
     questions11.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
-    });    
+      total11 += Number(selected);      
+    }); 
+    let average11 = total11 / questions11.length;
+    console.log(`The average value for Part XI is: ${average11}`);
+
+    let total12 = 0;
     questions12.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
-    });    
+      total12 += Number(selected);      
+    });
+    let average12 = total12 / questions12.length;
+    console.log(`The average value for Part XII is: ${average12}`);
+
+    let total13 = 0;
     questions13.forEach((question) => {
       const selected = event.target[question.name].value;
-      console.log(`${question.text}: ${selected}`);
+      total13 += Number(selected);      
     });
+    let average13 = total13 / questions13.length;
+    console.log(`The average value for Part XIII is: ${average13}`);
   };
 
   return (

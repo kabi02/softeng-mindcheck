@@ -17,6 +17,7 @@ import {
   RouterProvider,
   Route,
 } from 'react-router-dom'
+import Dashboard from './pages/Dashboard'
 
 const router =  createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router =  createBrowserRouter([
   {
     path:"dsm-5-tr/test/result",
     element: <Result/>
+  },
+  {
+    path:"dashboard",
+    element: <Dashboard/>
   }
 ])
 

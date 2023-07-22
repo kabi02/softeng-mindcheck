@@ -79,7 +79,8 @@ export default function TestResult() {
         threshold='Threshold to guide further inquiry: Slight or greater'
         result='Mild'
         />
-
+        <div className='sm:text-lg text-sm italic my-4 max-w-[50%] mx-auto text-center pb-20'>This measure is not a diagnosis or a full check-up of your mental health. It is only based on what you tell us and it may not be very accurate or the same as what others say. Your mental health can change depending on how you feel or what is happening in your life. If you are worried or unsure about your mental health, please talk to a professional who can help you.</div>
+        
         </div>
         
       </Layout>

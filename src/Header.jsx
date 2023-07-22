@@ -5,7 +5,7 @@ import Li from './components/Li';
 import { useState, useEffect } from "react";
 // for the icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes, faUser } from "@fortawesome/free-solid-svg-icons";
 
 // Added a custom hook to get the window width
 const useWindowWidth = () => {
@@ -42,6 +42,12 @@ export default function Header() {
     }
   }, [windowWidth]);
 
+  // for opening the user icon
+  const [showDiv, setShowDiv] = useState(false);
+  const toggleDiv = () => {
+    setShowDiv(prev => !prev);
+  };
+
   return (
     <div className="flex lg:flex-row flex-col xl:px-16 px-0 justify-between">
       <div className="flex justify-between lg:w-auto w-[90%] lg:m-9 mx-auto my-5 items-center">
@@ -49,6 +55,7 @@ export default function Header() {
           <img src={img} alt="" className="lg:w-full w-10/12" />
         </Link>
         {/* <!-- Hamburger Icon --> */}
+        
         <div className="lg:hidden">
           <button
             className="navbar-burger flex items-center text-black p-3"
@@ -59,8 +66,9 @@ export default function Header() {
               icon={showMenu ? faTimes : faBars}
               className="sm:text-3xl text-xl text-white"
             />
-          </button>
+          </button>          
         </div>
+        
       </div>
       {/* Show if showMenu is true */}
       {showMenu && (
@@ -71,7 +79,20 @@ export default function Header() {
             <Li text="About Us" link="/about-us" />
             <Li text="Resources" link="/resources" />
           </ul>
-          <div className="order-2 lg:mb-0 mb-10">
+          <div className="order-2 lg:mb-0 mb-10 flex flex-row items-center">
+            {/* //user */}
+            <FontAwesomeIcon icon={faUser} className="sm:text-3xl text-xl text-white mx-5 mt-1 cursor-pointer" onClick={toggleDiv}/>
+            {/* for showing the div if the user is clicked */}
+            {showDiv 
+            ? 
+              <div className="bg-[#9BA0BE] p-4 absolute mt-32 rounded-xl sm:text-base text-sm text-white">
+                My Beautiful Name <br/>
+                <h2 className='font-bold cursor-pointer'>Logout</h2>
+              </div> 
+              : 
+              null
+            }
+            
             <Link to="/what-is-dsm-5-tr">
               <button
                 type="button"
@@ -80,6 +101,7 @@ export default function Header() {
                 Take the Test
               </button>
             </Link>
+            
           </div>
         </div>
       )}

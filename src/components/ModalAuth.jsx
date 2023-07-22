@@ -41,6 +41,8 @@ function signUpWithPassword() {
   const auth = getAuth();
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
+  var name = document.getElementById("name").value;
+  var phone = document.getElementById("phone").value;
   console.log(email, password);
   if(document.getElementById("tnc").checked && document.getElementById("pp").checked) {
     createUserWithEmailAndPassword(auth, email, password)
@@ -136,10 +138,10 @@ export const ModalSignIn = ({ modalType, handleSwitch }) => {
               </Typography>
             </CardHeader>
             <CardBody className="flex flex-col gap-4">
-              <Input id="email" type="text" label="Email" size="medium" className="sm:ml-0 w-[85%] sm:w-full"/>
-              {/* <Input label="Name" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
-              <Input label="Phone Number" size="medium" className="sm:ml-0 w-[85%] sm:w-full" /> */}
-              <Input id="password" type="password" label="Password" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input id="email" type="text" label="Email" size="medium" required className="sm:ml-0 w-[85%] sm:w-full"/>
+              <Input id="name" type="text" label="Name" size="medium" required className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input id="phone" type="tel" label="Phone Number" size="medium" required className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input id="password" type="password" label="Password" size="medium" required className="sm:ml-0 w-[85%] sm:w-full" />
               <div className="-ml-2.5">
                 <Checkbox id="pp" color="indigo" label={
                   <Typography color="blue-gray" className="text-xs sm:text-sm flex">I've read the

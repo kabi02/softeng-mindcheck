@@ -1,8 +1,8 @@
-// import the withMT function
+// Import the withMT function
 const withMT = require("@material-tailwind/react/utils/withMT");
 
-// call the withMT function with your existing Tailwind CSS configuration object
-const config = withMT({
+// Create a Tailwind CSS configuration object
+const config = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
@@ -12,7 +12,10 @@ const config = withMT({
     },
   },
   plugins: [],
-});
+};
 
-// export the result of the withMT function as the default module
-export default config;
+// Wrap the configuration object with the withMT function
+const wrappedConfig = withMT(config);
+
+// Export the wrapped configuration object
+export default wrappedConfig;

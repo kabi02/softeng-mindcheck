@@ -1,33 +1,89 @@
-// For Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+
 import {Link} from 'react-router-dom' // Act as <a href>
-import img from './assets/logo.png'
+import img from './assets/logo.png' // navbar logo
 import Li from './components/Li';
+import { useState, useEffect } from "react";
+// for the icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+
+// Added a custom hook to get the window width
+const useWindowWidth = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  return windowWidth;
+};
 
 export default function Header() {
-    return(
-        <div className="flex lg:flex-row flex-col  xl:px-16 px-0 justify-between">
-            <div className=" flex justify-between lg:w-auto w-[90%] lg:m-9 mx-9 my-5 items-center">
-                <Link to='/'><img src={img} alt="" /></Link>
-                {/* <!-- Hamburger Icon --> */}
-                <div className="lg:hidden">
-                    <button className="navbar-burger flex items-center text-black p-3">
-                        <FontAwesomeIcon icon={faBars} className='sm:text-3xl text-xl text-white pr-9'/>
-                    </button>
-                </div>
-            </div>
-            <div className="w-full order-2 text-lg flex lg:flex-row flex-col justify-between xl:justify-center items-center text-center 2xl:gap-16 gap-7 lg:px-9 mx-auto">
-                <ul className="flex lg:flex-row flex-col font-open-sans xl:gap-16 lg:gap-7 gap-1 text-white">
-                    <Li text='Scoring Guide' link='/scoring-guide'/>
-                    <Li text='Specialized Tests' link='/specialized-tests'/>
-                    <Li text='About Us' link='/about-us'/>
-                    <Li text='Resources' link='/resources'/>
-                </ul>
-                <div className="order-2 max-lg:mb-10">
-                    <Link to='/what-is-dsm-5-tr'><button type="button" className="py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200">Take the Test</button></Link>
-                </div>
-            </div>
+  const breakpoint = 960; // in mobile view if in lg screen size
+  const windowWidth = useWindowWidth(); // get window width
+
+  const [showMenu, setShowMenu] = useState(false); // for showing or hiding the navabr
+
+  // when clicking the hamburger menu
+  const handleMenuClick = () => {
+    setShowMenu(!showMenu);
+  };
+
+  // always show the navbar when screen size > 960px 
+  useEffect(() => {
+    if (windowWidth > breakpoint) {
+      setShowMenu(true);
+    } else {
+      setShowMenu(false);
+    }
+  }, [windowWidth]);
+
+  return (
+    <div className="flex lg:flex-row flex-col xl:px-16 px-0 justify-between">
+      <div className="flex justify-between lg:w-auto w-[90%] lg:m-9 mx-auto my-5 items-center">
+        <Link to="/">
+          <img src={img} alt="" className="lg:w-full w-10/12" />
+        </Link>
+        {/* <!-- Hamburger Icon --> */}
+        <div className="lg:hidden">
+          <button
+            className="navbar-burger flex items-center text-black p-3"
+            onClick={handleMenuClick}
+          >
+            {/* X icon if the menu is showing, hamburger menu if the menu is not yet shown */}
+            <FontAwesomeIcon
+              icon={showMenu ? faTimes : faBars}
+              className="sm:text-3xl text-xl text-white"
+            />
+          </button>
         </div>
-    )
+      </div>
+      {/* Show if showMenu is true */}
+      {showMenu && (
+        <div className="w-full order-2 lg:text-lg text-base flex lg:flex-row flex-col justify-between xl:justify-center items-center text-center 2xl:gap-16 gap-5 lg:px-9 mx-auto">
+          <ul className="flex lg:flex-row flex-col font-open-sans xl:gap-16 lg:gap-7 gap-2 text-white">
+            <Li text="Scoring Guide" link="/scoring-guide" />
+            <Li text="Specialized Tests" link="/specialized-tests" />
+            <Li text="About Us" link="/about-us" />
+            <Li text="Resources" link="/resources" />
+          </ul>
+          <div className="order-2 lg:mb-0 mb-10">
+            <Link to="/what-is-dsm-5-tr">
+              <button
+                type="button"
+                className="py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200"
+              >
+                Take the Test
+              </button>
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
+

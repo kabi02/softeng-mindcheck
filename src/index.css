@@ -8,6 +8,12 @@ html {
     border-spacing: 10px;
     margin: 90px;
 }
+/* to show navbar menu in lg screens */
+@media screen and (min-width: 1024px) {
+    .w-full.order-2.lg:text-lg.flex.lg:flex-row.justify-between.xl:justify-center.items-center.text-center.gap-16 {
+      display: flex !important;
+    }
+  }
   
 @tailwind base;
 @tailwind utilities;

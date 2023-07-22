@@ -207,7 +207,7 @@ export default function TestList() {
         <Title textSizeClass='sm:text-base text-sm' padding='pb-5'>
             Adult DSM-5-TR Self-Rated Level 1 Cross-Cutting Symptom Measure: domains, thresholds for further inquiry, and associated Level 2 measures for adults ages 18 and over
         </Title>
-        <table className=' w-full sm:gap-2 sm:text-base min-[400px]:text-xs text-[0.50rem] mb-1 mt-2 border-separate md:border-spacing-6 sm:border-spacing-3 max-[390px]:border-spacing-1'>
+        <table className='max-w-[90%] mx-auto w-full sm:gap-2 sm:text-base min-[400px]:text-xs text-[0.50rem] mb-1 mt-2 border-separate md:border-spacing-6 sm:border-spacing-3 max-[390px]:border-spacing-1'>
             <tr className='tabletests'>
                 <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Domain</th>
                 <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Domain Name</th>

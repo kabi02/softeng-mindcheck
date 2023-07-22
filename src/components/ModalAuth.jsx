@@ -13,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 
 // Import the functions you need from the SDKs you need
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, set } from "firebase/database";
@@ -65,8 +65,6 @@ function signUpWithPassword() {
           .then(() => {
             console.log("Data inserted to Firebase Database");
             alert("You are now Registered! Proceed to Sign In Page");
-            // Close the sign-up modal
-            // handleOpenSignInModal(); Call the function to open the sign-in modal
           })
           .catch((error) => {
             alert("Error with Sign Up!");
@@ -76,9 +74,35 @@ function signUpWithPassword() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        alert(errorMessage);
         console.log(errorCode, errorMessage);
       });
   }
+}
+
+function signInWithPassword() {
+  const auth = getAuth();
+  const email = document.getElementById("email-in").value;
+  const password = document.getElementById("password-in").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      alert("Signed in successfully!");
+      console.log("Signed in:", user);
+
+      // Redirect the user to the desired page
+      window.location.href = "/dsm-5-tr/test"; // Replace "/dsm-5-tr/test" with your desired route
+
+      // You can also use react-router-dom's useHistory hook for routing instead of window.location.href.
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage);
+      console.log(errorCode, errorMessage);
+    });
 }
 
 // SignIn
@@ -110,14 +134,14 @@ export const ModalSignIn = ({ modalType, handleSwitch }) => {
               </Typography>
             </CardHeader>
             <CardBody className="flex flex-col gap-4">
-              <Input label="Email" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
-              <Input label="Password" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input id="email-in" label="Email" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input id="password-in" label="Password" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
               <div className="-ml-2.5">
                 <Checkbox label="Remember Me" />
               </div>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button variant="gradient" color="indigo" onClick={handleOpen} fullWidth>
+              <Button variant="gradient" color="indigo" onClick={signInWithPassword} fullWidth>
                 Sign In
               </Button>
               <Typography variant="small" className="mt-6 flex justify-center">

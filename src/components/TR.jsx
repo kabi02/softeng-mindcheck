@@ -1,4 +1,5 @@
 import React from 'react'
+// import ResultModal from './ResultModal'
 
 export default function TR({infos}) {
   return (

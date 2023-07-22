@@ -2,23 +2,28 @@ import React from 'react'
 import Layout from '../Layout'
 import Title from '../Title'
 import TR from '../TR'
+import { ResultModal } from '../ResultModal'
 
 export default function TableDashboard() {
-    // values of each row
-    const first=[
-        {
-            value: 'Ana Santos',
-        },
-        {
-            value: '63 917 123-4567',
-        },
-        {
-            value: 'Treatment Needed',
-        },
-        {
-            value: 'Yes',
-        },
-    ]
+
+  // values of each row
+    const first = [
+      {
+        value: "Ana Santos",
+      },
+      {
+        value: "63 917 123-4567",
+      },
+      {
+        value: "Yes",
+      },
+    ];
+    let userName = first[0].value;
+    // add ResultModal to the array
+    first.push({
+      value: <ResultModal user={userName} />,
+    });
+
   return (
     <div>
       <Layout>
@@ -28,12 +33,10 @@ export default function TableDashboard() {
             <tr className='tabletests'>
                 <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Name</th>
                 <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Contact Number</th>
-                <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Status</th>
                 <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Guidance Visit</th>
                 <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Result</th>
             </tr>
             <TR infos={first} />
-
         </table>
       </div>
       </Layout>

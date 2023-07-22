@@ -12,24 +12,26 @@ import {
   Checkbox,
 } from "@material-tailwind/react";
 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // Import the functions you need from the SDKs you need
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getDatabase, ref, set } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAofR0_tQPc2Cvz5JO-DfCY43TKXGRBPbY",
-  authDomain: "softeng-mindcheck.firebaseapp.com",
-  projectId: "softeng-mindcheck",
-  storageBucket: "softeng-mindcheck.appspot.com",
-  messagingSenderId: "540338321211",
-  appId: "1:540338321211:web:cb28c9b96be1354c4f691e",
-  measurementId: "G-H788E2H82D"
-};
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAofR0_tQPc2Cvz5JO-DfCY43TKXGRBPbY",
+    authDomain: "softeng-mindcheck.firebaseapp.com",
+    databaseURL: "https://softeng-mindcheck-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "softeng-mindcheck",
+    storageBucket: "softeng-mindcheck.appspot.com",
+    messagingSenderId: "540338321211",
+    appId: "1:540338321211:web:cb28c9b96be1354c4f691e",
+    measurementId: "G-H788E2H82D"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -39,24 +41,42 @@ console.log(app);
 
 function signUpWithPassword() {
   const auth = getAuth();
+  const database = getDatabase();
+
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   var name = document.getElementById("name").value;
   var phone = document.getElementById("phone").value;
-  console.log(email, password);
-  if(document.getElementById("tnc").checked && document.getElementById("pp").checked) {
+
+  if (document.getElementById("tnc").checked && document.getElementById("pp").checked) {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log("Registered");
-        // ...
+
+        // Insert user data into the Firebase Realtime Database
+        const usersRef = ref(database, "users/" + user.uid);
+
+        set(usersRef, {
+          email: email,
+          name: name,
+          phone: phone,
+        })
+          .then(() => {
+            console.log("Data inserted to Firebase Database");
+            alert("You are now Registered! Proceed to Sign In Page");
+            // Close the sign-up modal
+            // handleOpenSignInModal(); Call the function to open the sign-in modal
+          })
+          .catch((error) => {
+            alert("Error with Sign Up!");
+            console.log("Error inserting data to Firebase Database:", error);
+          });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        // ..
       });
   }
 }
@@ -140,7 +160,7 @@ export const ModalSignIn = ({ modalType, handleSwitch }) => {
             <CardBody className="flex flex-col gap-4">
               <Input id="email" type="text" label="Email" size="medium" required className="sm:ml-0 w-[85%] sm:w-full"/>
               <Input id="name" type="text" label="Name" size="medium" required className="sm:ml-0 w-[85%] sm:w-full" />
-              <Input id="phone" type="tel" label="Phone Number" size="medium" required className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input id="phone" type="tel" label="Phone Number" size="medium" pattern="^09\d{9}$" required className="sm:ml-0 w-[85%] sm:w-full" />
               <Input id="password" type="password" label="Password" size="medium" required className="sm:ml-0 w-[85%] sm:w-full" />
               <div className="-ml-2.5">
                 <Checkbox id="pp" color="indigo" label={

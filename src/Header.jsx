@@ -1,5 +1,5 @@
 
-import {Link} from 'react-router-dom' // Act as <a href>
+import {Link, useLocation} from 'react-router-dom'
 import img from './assets/logo.png' // navbar logo
 import Li from './components/Li';
 import { useState, useEffect } from "react";
@@ -33,6 +33,10 @@ export default function Header() {
     setShowMenu(!showMenu);
   };
 
+  // get the current location to hide the take the test button in the test page
+  const location = useLocation(); 
+  const hideButton = location.pathname === "/dsm-5-tr/test"; 
+
   // always show the navbar when screen size > 960px 
   useEffect(() => {
     if (windowWidth > breakpoint) {
@@ -54,8 +58,7 @@ export default function Header() {
         <Link to="/">
           <img src={img} alt="" className="lg:w-full w-10/12" />
         </Link>
-        {/* <!-- Hamburger Icon --> */}
-        
+        {/* <!-- Hamburger Icon --> */}        
         <div className="lg:hidden">
           <button
             className="navbar-burger flex items-center text-black p-3"
@@ -67,8 +70,7 @@ export default function Header() {
               className="sm:text-3xl text-xl text-white"
             />
           </button>          
-        </div>
-        
+        </div>        
       </div>
       {/* Show if showMenu is true */}
       {showMenu && (
@@ -92,16 +94,20 @@ export default function Header() {
               : 
               null
             }
-            
+            {/* // only render the button if hideButton is false */}
+            {!hideButton && ( 
             <Link to="/what-is-dsm-5-tr">
               <button
                 type="button"
-                className="py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200"
+                className={`
+                  py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200
+                  
+                `}
               >
                 Take the Test
               </button>
             </Link>
-            
+            )}            
           </div>
         </div>
       )}

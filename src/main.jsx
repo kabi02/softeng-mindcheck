@@ -11,6 +11,7 @@ import AboutUs from './pages/AboutUs.jsx'
 import Resources from './pages/Resources.jsx'
 import DSMTest from './pages/DSMTest'
 import Result from './pages/Result'
+import DataPrivacy from './pages/DataPrivacy'
 
 import {
   createBrowserRouter,
@@ -55,6 +56,10 @@ const router =  createBrowserRouter([
   {
     path:"dashboard",
     element: <Dashboard/>
+  },
+  {
+    path:"data-privacy",
+    element: <DataPrivacy/>
   }
 ])
 

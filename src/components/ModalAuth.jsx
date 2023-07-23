@@ -16,6 +16,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { Link } from "react-router-dom";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -148,14 +149,15 @@ export const ModalSignIn = ({ modalType, handleSwitch }) => {
               <div className="-ml-2.5">
                 <Checkbox id="pp" color="indigo" label={
                   <Typography color="blue-gray" className="text-xs sm:text-sm flex">I've read the
-                    <Typography as="a" href="#" color="indigo" className="text-xs sm:text-sm hover:text-indigo-300 transition-colors">
-                      &nbsp;Privacy Policy
+                    <Typography color="indigo" className="text-xs sm:text-sm hover:text-indigo-300 transition-colors">
+                      <Link to="/data-privacy" target="_blank">&nbsp;Privacy Policy</Link>
+                      
                     </Typography>.
                   </Typography>
                 } />
                 <Checkbox id="tnc" color="indigo" label={
                   <Typography color="blue-gray" className="text-xs sm:text-sm flex">I agree with the
-                    <Typography as="a" href="#" color="indigo" className="text-xs sm:text-sm hover:text-indigo-300 transition-colors">
+                    <Typography color="indigo" className="text-xs sm:text-sm hover:text-indigo-300 transition-colors">
                       &nbsp;Terms and Conditions
                     </Typography>.
                   </Typography>

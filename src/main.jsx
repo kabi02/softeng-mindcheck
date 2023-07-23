@@ -19,6 +19,7 @@ import {
   Route,
 } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
+import TermsCondition from './pages/TermsCondition'
 
 const router =  createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router =  createBrowserRouter([
   {
     path:"data-privacy",
     element: <DataPrivacy/>
+  },
+  {
+    path:"terms-and-conditions",
+    element: <TermsCondition/>
   }
 ])
 

@@ -158,7 +158,7 @@ export const ModalSignIn = ({ modalType, handleSwitch }) => {
                 <Checkbox id="tnc" color="indigo" label={
                   <Typography color="blue-gray" className="text-xs sm:text-sm flex">I agree with the
                     <Typography color="indigo" className="text-xs sm:text-sm hover:text-indigo-300 transition-colors">
-                      &nbsp;Terms and Conditions
+                      <Link to="/terms-and-conditions" target="_blank">&nbsp;Terms and Conditions</Link>
                     </Typography>.
                   </Typography>
                 } />

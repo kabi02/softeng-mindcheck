@@ -37,35 +37,41 @@ const analytics = getAnalytics(app);
 
 console.log(app);
 
-function signUpWithPassword() {
-  const auth = getAuth();
-  var email = document.getElementById("email").value;
-  var password = document.getElementById("password").value;
-  var name = document.getElementById("name").value;
-  var phone = document.getElementById("phone").value;
-  console.log(email, password);
-  if(document.getElementById("tnc").checked && document.getElementById("pp").checked) {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log("Registered");
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
-      });
-  }
-}
-
 // SignIn
 export const ModalSignIn = ({ modalType, handleSwitch }) => {
   const [open, setOpen] = React.useState(false);
   // For exiting modal
   const handleOpen = () => setOpen((cur) => !cur);
+
+  function signUpWithPassword() {
+    const auth = getAuth();
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var name = document.getElementById("name").value;
+    var phone = document.getElementById("phone").value;
+    console.log(email, password);
+    if(document.getElementById("tnc").checked && document.getElementById("pp").checked) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log("Registered");        
+          // Switch to sign in modal
+          handleSwitch("signin");
+          // Open the modal
+          setOpen(true);
+          alert("You have registered successfully. Please sign in to continue.");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          alert("Something went wrong. Please try again.");
+          // ..
+        });
+    }
+  }
  
   return (
     <React.Fragment>
@@ -92,9 +98,6 @@ export const ModalSignIn = ({ modalType, handleSwitch }) => {
             <CardBody className="flex flex-col gap-4">
               <Input type="email" label="Email" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
               <Input type="password" label="Password" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
-              <div className="-ml-2.5">
-                <Checkbox label="Remember Me" />
-              </div>
             </CardBody>
             <CardFooter className="pt-0">
               <Button variant="gradient" color="indigo" onClick={handleOpen} fullWidth>

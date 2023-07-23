@@ -101,9 +101,11 @@ export const ModalSignIn = ({ modalType, handleSwitch, text }) => {
               <Input type="password" label="Password" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
             </CardBody>
             <CardFooter className="pt-0">
-              <Button variant="gradient" color="indigo" onClick={handleOpen} fullWidth>
+              <Link to='/dsm-5-tr/test'>
+                <Button variant="gradient" color="indigo" fullWidth>
                 Sign In
-              </Button>
+                </Button>
+              </Link>
               <Typography variant="small" className="mt-6 flex justify-center">
                 Don&apos;t have an account?
                 <Typography

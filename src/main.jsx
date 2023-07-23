@@ -20,6 +20,7 @@ import {
 } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import TermsCondition from './pages/TermsCondition'
+import Disclaimer from './pages/Disclaimer'
 
 const router =  createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router =  createBrowserRouter([
   {
     path:"terms-and-conditions",
     element: <TermsCondition/>
+  },
+  {
+    path:"what-is-dsm-5-tr/disclaimer",
+    element: <Disclaimer/>
   }
 ])
 

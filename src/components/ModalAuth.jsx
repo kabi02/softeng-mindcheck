@@ -12,26 +12,24 @@ import {
   Checkbox,
 } from "@material-tailwind/react";
 
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 // Import the functions you need from the SDKs you need
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, set } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyAofR0_tQPc2Cvz5JO-DfCY43TKXGRBPbY",
-    authDomain: "softeng-mindcheck.firebaseapp.com",
-    databaseURL: "https://softeng-mindcheck-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "softeng-mindcheck",
-    storageBucket: "softeng-mindcheck.appspot.com",
-    messagingSenderId: "540338321211",
-    appId: "1:540338321211:web:cb28c9b96be1354c4f691e",
-    measurementId: "G-H788E2H82D"
-  };
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAofR0_tQPc2Cvz5JO-DfCY43TKXGRBPbY",
+  authDomain: "softeng-mindcheck.firebaseapp.com",
+  projectId: "softeng-mindcheck",
+  storageBucket: "softeng-mindcheck.appspot.com",
+  messagingSenderId: "540338321211",
+  appId: "1:540338321211:web:cb28c9b96be1354c4f691e",
+  measurementId: "G-H788E2H82D"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -41,68 +39,26 @@ console.log(app);
 
 function signUpWithPassword() {
   const auth = getAuth();
-  const database = getDatabase();
-
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   var name = document.getElementById("name").value;
   var phone = document.getElementById("phone").value;
-
-  if (document.getElementById("tnc").checked && document.getElementById("pp").checked) {
+  console.log(email, password);
+  if(document.getElementById("tnc").checked && document.getElementById("pp").checked) {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-
-        // Insert user data into the Firebase Realtime Database
-        const usersRef = ref(database, "users/" + user.uid);
-
-        set(usersRef, {
-          email: email,
-          name: name,
-          phone: phone,
-        })
-          .then(() => {
-            console.log("Data inserted to Firebase Database");
-            alert("You are now Registered! Proceed to Sign In Page");
-          })
-          .catch((error) => {
-            alert("Error with Sign Up!");
-            console.log("Error inserting data to Firebase Database:", error);
-          });
+        console.log("Registered");
+        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(errorMessage);
         console.log(errorCode, errorMessage);
+        // ..
       });
   }
-}
-
-function signInWithPassword() {
-  const auth = getAuth();
-  const email = document.getElementById("email-in").value;
-  const password = document.getElementById("password-in").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      alert("Signed in successfully!");
-      console.log("Signed in:", user);
-
-      // Redirect the user to the desired page
-      window.location.href = "/dsm-5-tr/test"; // Replace "/dsm-5-tr/test" with your desired route
-
-      // You can also use react-router-dom's useHistory hook for routing instead of window.location.href.
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
-      console.log(errorCode, errorMessage);
-    });
 }
 
 // SignIn
@@ -134,14 +90,14 @@ export const ModalSignIn = ({ modalType, handleSwitch }) => {
               </Typography>
             </CardHeader>
             <CardBody className="flex flex-col gap-4">
-              <Input id="email-in" label="Email" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
-              <Input id="password-in" label="Password" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input type="email" label="Email" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input type="password" label="Password" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
               <div className="-ml-2.5">
                 <Checkbox label="Remember Me" />
               </div>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button variant="gradient" color="indigo" onClick={signInWithPassword} fullWidth>
+              <Button variant="gradient" color="indigo" onClick={handleOpen} fullWidth>
                 Sign In
               </Button>
               <Typography variant="small" className="mt-6 flex justify-center">
@@ -184,7 +140,7 @@ export const ModalSignIn = ({ modalType, handleSwitch }) => {
             <CardBody className="flex flex-col gap-4">
               <Input id="email" type="text" label="Email" size="medium" required className="sm:ml-0 w-[85%] sm:w-full"/>
               <Input id="name" type="text" label="Name" size="medium" required className="sm:ml-0 w-[85%] sm:w-full" />
-              <Input id="phone" type="tel" label="Phone Number" size="medium" pattern="^09\d{9}$" required className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input id="phone" type="tel" label="Phone Number" size="medium" required className="sm:ml-0 w-[85%] sm:w-full" />
               <Input id="password" type="password" label="Password" size="medium" required className="sm:ml-0 w-[85%] sm:w-full" />
               <div className="-ml-2.5">
                 <Checkbox id="pp" color="indigo" label={

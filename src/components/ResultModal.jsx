@@ -17,7 +17,7 @@ export function ResultModal({user, result}) {
     <>
       <div onClick={handleOpen} className="cursor-pointer text-center">Show</div>
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader className="justify-center bg-indigo-500">{user}'s Result</DialogHeader>
+        <DialogHeader className="text-white rounded-lg py-7 justify-center bg-gradient-to-r from-[rgba(99,143,255,1)] to-[rgba(56,54,144,1)]">{user}'s Result</DialogHeader>
         <DialogBody divider className="scrollable-body">
 
           {/* for multiple ResultSection */}

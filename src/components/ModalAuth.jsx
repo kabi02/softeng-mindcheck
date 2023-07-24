@@ -39,7 +39,7 @@ const analytics = getAnalytics(app);
 console.log(app);
 
 // SignIn
-export const ModalSignIn = ({ modalType, handleSwitch, text }) => {
+export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
   const [open, setOpen] = React.useState(false);
   // For exiting modal
   const handleOpen = () => setOpen((cur) => !cur);
@@ -76,7 +76,7 @@ export const ModalSignIn = ({ modalType, handleSwitch, text }) => {
  
   return (
     <React.Fragment>
-      <BlueBtn func={handleOpen} text={text}></BlueBtn>
+      <BlueBtn func={handleOpen} text={text} style={style}></BlueBtn>
       {/* Sign In Modal */}
       {
         modalType === "signin" && (

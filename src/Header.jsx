@@ -3,9 +3,11 @@ import {Link, useLocation} from 'react-router-dom'
 import img from './assets/logo.png' // navbar logo
 import Li from './components/Li';
 import { useState, useEffect } from "react";
+import {ModalSignIn} from './components/ModalAuth'
 // for the icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes, faUser } from "@fortawesome/free-solid-svg-icons";
+import BlueBtn from './components/BlueBtn';
 
 // Added a custom hook to get the window width
 const useWindowWidth = () => {
@@ -23,6 +25,18 @@ const useWindowWidth = () => {
 };
 
 export default function Header() {
+  // define a state variable for modal type
+  const [modalTypeIn, setModalTypeIn] = useState("signin");
+  const [modalTypeUp, setModalTypeUp] = useState("signup");
+
+  // define a function that changes the modal type
+  function handleSwitchIn(type) {
+    setModalTypeIn(type);
+  }
+  function handleSwitchUp(type) {
+    setModalTypeUp(type);
+  }
+
   const breakpoint = 960; // in mobile view if in lg screen size
   const windowWidth = useWindowWidth(); // get window width
 
@@ -72,7 +86,7 @@ export default function Header() {
           </button>          
         </div>        
       </div>
-      {/* Show if showMenu is true */}
+      {/* Show the navlinks if showMenu is true */}
       {showMenu && (
         <div className="w-full order-2 lg:text-lg text-base flex lg:flex-row flex-col justify-between xl:justify-center items-center text-center 2xl:gap-16 gap-5 lg:px-9 mx-auto">
           <ul className="flex lg:flex-row flex-col font-open-sans xl:gap-16 lg:gap-7 gap-2 text-white">
@@ -81,28 +95,49 @@ export default function Header() {
             <Li text="About Us" link="/about-us" />
             <Li text="Resources" link="/resources" />
           </ul>
-          <div className="order-2 lg:mb-0 mb-10 flex flex-row items-center">
-            {/* //user */}
-            <FontAwesomeIcon icon={faUser} className="sm:text-3xl text-xl text-white mx-5 mt-1 cursor-pointer" onClick={toggleDiv}/>
-            {/* for showing the div if the user is clicked */}
-            {showDiv 
+          <div className="order-2 lg:mb-0 flex lg:flex-row flex-col items-center">
+            {/* USER */}
+            <FontAwesomeIcon icon={faUser} className="sm:text-3xl text-xl text-white mx-5 mt-1 lg:mb-0 mb-4 cursor-pointer lg:block hidden" onClick={toggleDiv}/>
+            {/* for showing the div if the user is clicked or screen is smaller than breakpoint*/}
+            {showDiv || windowWidth < breakpoint 
             ? 
-              <div className="bg-[#9BA0BE] p-4 absolute mt-32 rounded-xl sm:text-base text-sm text-white">
-                My Beautiful Name <br/>
-                <h2 className='font-bold cursor-pointer'>Logout</h2>
+              <div className="p-4 rounded-xl sm:text-base text-sm text-white -mt-7
+                lg:absolute lg:mt-48 lg:mb-0 lg:bg-[#9BA0BE]">
+                <div className='h-[0.04rem] rounded-2xl my-4 w-full bg-white lg:hidden'></div>
+                <b className='text-lg my-2'>Account</b><br/>
+                <div className='h-[0.04rem] rounded-2xl my-3 w-full bg-white lg:block hidden'></div>
+
+                {/* if user is logged in */}
+                {/* <p className='my-2'>My Beautiful Name</p>
+                <h2 className='font-bold cursor-pointer'>Logout</h2> */}
+
+                {/* if user is not yet logged in */}
+                <div className='flex flex-col'>
+                  <ModalSignIn 
+                    modalType={modalTypeIn}
+                    handleSwitch={handleSwitchIn}
+                    text='Sign In'
+                    style='my-2 mx-7'
+                  />
+                  <ModalSignIn 
+                    modalType={modalTypeUp}
+                    handleSwitch={handleSwitchUp}
+                    text='Sign Up'
+                    style='my-2 mx-7'
+                  />
+                </div>
+
+
               </div> 
               : 
               null
             }
-            {/* // only render the button if hideButton is false */}
+            {/* only show the button if hideButton is false */}
             {!hideButton && ( 
             <Link to="/what-is-dsm-5-tr">
               <button
                 type="button"
-                className={`
-                  py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200
-                  
-                `}
+                className='py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200 mb-10 lg:mb-0'   
               >
                 Take the Test
               </button>

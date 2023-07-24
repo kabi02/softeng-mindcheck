@@ -13,6 +13,7 @@ import DSMTest from './pages/DSMTest'
 import Result from './pages/Result'
 import DataPrivacy from './pages/DataPrivacy'
 
+import { AuthProvider } from '../src/components/AuthContext';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -75,6 +76,8 @@ const router =  createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <AuthProvider>
+      <RouterProvider router={router}/>
+    </AuthProvider>
   </React.StrictMode>,
 )

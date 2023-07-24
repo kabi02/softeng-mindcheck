@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import BlueBtn from '../components/BlueBtn'
 import {
   Button,
@@ -18,6 +18,8 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { Link } from "react-router-dom";
 import { getDatabase, ref, push, set, get} from "firebase/database";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -43,6 +45,8 @@ console.log(app);
 // SignIn
 export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
   const [open, setOpen] = React.useState(false);
+  const navigateTo = useNavigate(); // Get the history object
+  const { setUserLoggedIn } = useAuth(); // Get the setUserLoggedIn function from the AuthContext
   // For exiting modal
   const handleOpen = () => setOpen((cur) => !cur);
 
@@ -55,11 +59,16 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log("teitetetetete");
           alert("Signed in successfully!");
+
+          // Notify the webpages that the user is logged in
+          setUserLoggedIn(user);
+
+          navigateTo('/dsm-5-tr/test');
       })
       .catch((error) => {
         const errorCode = error.code;
+        console.log(errorCode);
         const errorMessage = error.message;
         alert(errorMessage);
       });
@@ -126,11 +135,9 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
               <Input id="sign-password" type="password" label="Password" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
             </CardBody>
             <CardFooter className="pt-0">
-              <Link to='/dsm-5-tr/test'>
                 <Button variant="gradient" color="indigo" onClick={signIn} fullWidth>
                 Sign In
                 </Button>
-              </Link>
               <Typography variant="small" className="mt-6 flex justify-center">
                 Don&apos;t have an account?
                 <Typography

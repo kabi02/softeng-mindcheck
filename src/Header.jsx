@@ -2,8 +2,10 @@
 import {Link, useLocation} from 'react-router-dom'
 import img from './assets/logo.png' // navbar logo
 import Li from './components/Li';
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {ModalSignIn} from './components/ModalAuth'
+import { useAuth } from "./components/AuthContext";
+import { useNavigate } from "react-router-dom";
 // for the icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -36,6 +38,10 @@ export default function Header() {
   function handleSwitchUp(type) {
     setModalTypeUp(type);
   }
+
+  // Get the user state from the AuthContext
+  const { user, logout } = useAuth();
+  const navigateTo = useNavigate();
 
   const breakpoint = 960; // in mobile view if in lg screen size
   const windowWidth = useWindowWidth(); // get window width
@@ -107,25 +113,34 @@ export default function Header() {
                 <b className='text-lg my-2'>Account</b><br/>
                 <div className='h-[0.04rem] rounded-2xl my-3 w-full bg-white lg:block hidden'></div>
 
-                {/* if user is logged in */}
-                {/* <p className='my-2'>My Beautiful Name</p>
-                <h2 className='font-bold cursor-pointer'>Logout</h2> */}
+                {/* Show the div only if the user is logged in */}
+                {user && ( // <-- Check if the user is logged in
+                  <div id="name-logout-div">
+                    <p className="my-2">Very Cool Name</p>
+                    <h2 className="font-bold cursor-pointer" onClick={() => {
+                    logout(); // Logout function with alert inside AuthContext
+                    navigateTo("/"); // Redirect to the path "/"
+                  }}>Logout</h2>
+                  </div> 
+                )}
 
-                {/* if user is not yet logged in */}
-                <div className='flex flex-col'>
-                  <ModalSignIn 
-                    modalType={modalTypeIn}
-                    handleSwitch={handleSwitchIn}
-                    text='Sign In'
-                    style='my-2 mx-7'
-                  />
-                  <ModalSignIn 
-                    modalType={modalTypeUp}
-                    handleSwitch={handleSwitchUp}
-                    text='Sign Up'
-                    style='my-2 mx-7'
-                  />
-                </div>
+                {/* Show the div only if the user is not logged in */}
+                {!user && ( // <-- Check if no user is logged in
+                  <div id="sign-inup-div" className="flex flex-col">
+                    <ModalSignIn
+                      modalType={modalTypeIn}
+                      handleSwitch={handleSwitchIn}
+                      text="Sign In"
+                      style="my-2 mx-7"
+                    />
+                    <ModalSignIn
+                      modalType={modalTypeUp}
+                      handleSwitch={handleSwitchUp}
+                      text="Sign Up"
+                      style="my-2 mx-7"
+                    />
+                  </div>
+                )}
 
 
               </div> 
@@ -134,12 +149,12 @@ export default function Header() {
             }
             {/* only show the button if hideButton is false */}
             {!hideButton && ( 
-            <Link to="/what-is-dsm-5-tr">
+            <Link to={user ? "/dsm-5-tr/test" : "/what-is-dsm-5-tr"}>
               <button
                 type="button"
                 className='py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200 mb-10 lg:mb-0'   
               >
-                Take the Test
+                {user ? "Go to Test" : "Take the Test"}
               </button>
             </Link>
             )}            

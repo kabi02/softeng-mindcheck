@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import BlueBtn from '../components/BlueBtn'
 import {
   Button,
@@ -12,11 +12,12 @@ import {
   Checkbox,
 } from "@material-tailwind/react";
 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,  signInWithEmailAndPassword } from "firebase/auth";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { Link } from "react-router-dom";
+import { getDatabase, ref, push, set, get} from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -35,6 +36,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const db = getDatabase();
 
 console.log(app);
 
@@ -43,6 +45,26 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
   const [open, setOpen] = React.useState(false);
   // For exiting modal
   const handleOpen = () => setOpen((cur) => !cur);
+
+  function signIn () {
+      const auth = getAuth();
+      var email = document.getElementById("sign-email").value;
+      var password = document.getElementById("sign-password").value;
+
+      if (email && password) {
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log("teitetetetete");
+          alert("Signed in successfully!");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
+    }
+  }
 
   function signUpWithPassword() {
     const auth = getAuth();
@@ -73,6 +95,9 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
         });
     }
   }
+
+
+
  
   return (
     <React.Fragment>
@@ -97,12 +122,12 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
               </Typography>
             </CardHeader>
             <CardBody className="flex flex-col gap-4">
-              <Input type="email" label="Email" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
-              <Input type="password" label="Password" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input id="sign-email" type="email" label="Email" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
+              <Input id="sign-password" type="password" label="Password" size="medium" className="sm:ml-0 w-[85%] sm:w-full" />
             </CardBody>
             <CardFooter className="pt-0">
               <Link to='/dsm-5-tr/test'>
-                <Button variant="gradient" color="indigo" fullWidth>
+                <Button variant="gradient" color="indigo" onClick={signIn} fullWidth>
                 Sign In
                 </Button>
               </Link>

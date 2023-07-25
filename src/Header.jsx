@@ -77,6 +77,7 @@ export default function Header() {
   // get the current location to hide the take the test button in the test page
   const location = useLocation(); 
   const hideButton = location.pathname === "/dsm-5-tr/test"; 
+  const hideButton1 = location.pathname === "/dashboard"; 
   const hideButton2 = location.pathname === "/dsm-5-tr/test/result"; 
 
   // always show the navbar when screen size > 960px 
@@ -116,13 +117,22 @@ export default function Header() {
       </div>
       {/* Show the navlinks if showMenu is true */}
       {showMenu && (
-        <div className="w-full order-2 lg:text-lg text-base flex lg:flex-row flex-col justify-between xl:justify-center items-center text-center 2xl:gap-16 gap-5 lg:px-9 mx-auto">
-          <ul className="flex lg:flex-row flex-col font-open-sans xl:gap-16 lg:gap-7 gap-2 text-white">
-            <Li text="Scoring Guide" link="/scoring-guide" />
-            <Li text="Specialized Tests" link="/specialized-tests" />
-            <Li text="About Us" link="/about-us" />
-            <Li text="Resources" link="/resources" />
-          </ul>
+        <div className={`w-full order-2 lg:text-lg text-base flex lg:flex-row flex-col items-center text-center 2xl:gap-16 gap-5 lg:px-9 mx-auto
+          ${!hideButton1 
+          ? 'justify-between xl:justify-center'
+          : 'justify-end'
+          }         
+        `}>
+          { //dont show to admin user
+            !hideButton1 && (
+              <ul className="flex lg:flex-row flex-col font-open-sans xl:gap-16 lg:gap-7 gap-2 text-white">
+                <Li text="Scoring Guide" link="/scoring-guide" />
+                <Li text="Specialized Tests" link="/specialized-tests" />
+                <Li text="About Us" link="/about-us" />
+                <Li text="Resources" link="/resources" />
+              </ul>
+            )
+          }
           <div className="order-2 lg:mb-0 flex lg:flex-row flex-col items-center">
             {/* USER */}
             <FontAwesomeIcon icon={faUser} className="sm:text-3xl text-xl text-white mx-5 mt-1 lg:mb-0 mb-4 cursor-pointer lg:block hidden" onClick={toggleDiv}/>
@@ -170,7 +180,7 @@ export default function Header() {
               null
             }
             {/* only show the button if hideButton is false */}
-            {!hideButton && !hideButton2 && ( 
+            {!hideButton && !hideButton1 &&  !hideButton2 && ( 
             <Link to={user ? "/what-is-dsm-5-tr/disclaimer" : "/what-is-dsm-5-tr"}>
               <button
                 type="button"

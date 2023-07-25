@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Title from "../Title";
 import Layout from "../Layout";
 import Question from "../Question"; // Import the Question component
+import { app, db, auth, getUserData, set, ref, saveAveragesToDatabase } from "../firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 export default function Test() {
+  const navigateTo = useNavigate();
   const questions = [
     {
       text: "Little interest or pleasure in doing things?",
@@ -127,6 +130,15 @@ export default function Test() {
   const handleSubmit = (event) => {
     // Prevent the default browser behavior
     event.preventDefault();
+
+    // Get the current user's UID from Firebase auth
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      console.error("No current user found.");
+      return;
+    }
+    const uid = currentUser.uid;
+
     let total = 0;
     questions.forEach((question) => {
       const selected = event.target[question.name].value;
@@ -136,9 +148,11 @@ export default function Test() {
     console.log(`The average value for Part I is: ${average}`);
 
     questions2.forEach((question) => {
-      const selected = event.target[question.name].value;      // 
-      console.log(`The average value for Part II is: ${selected}`);
+      const selected = event.target[question.name].value;
+      total += Number(selected);
     });
+    let average2 = total / questions.length;
+    console.log(`The average value for Part II is: ${average2}`);
 
     let total3 = 0;
     questions3.forEach((question) => {
@@ -227,6 +241,48 @@ export default function Test() {
     });
     let average13 = total13 / questions13.length;
     console.log(`The average value for Part XIII is: ${average13}`);
+
+    // Create an object to hold the averages
+    const averagesData = {
+      _1part: average,
+      _2part: average2,
+      _3part: average3,
+      _4part: average4,
+      _5part: average5,
+      _6part: average6,
+      _7part: average7,
+      _8part: average8,
+      _9part: average9,
+      _x10part: average10,
+      _x11part: average11,
+      _x12part: average12,
+      _x13part: average13,
+    };
+  
+    (async () => {
+      try {
+        // Fetch the user's information from the "users" table
+        const userData = await getUserData(uid);
+
+        if (userData) {
+          // Include the user's email and name in the averages data
+          averagesData.email = userData.email;
+          averagesData.name = userData.name;
+
+          // Save the averages data to the "averages" table in the database
+          await saveAveragesToDatabase(uid, averagesData);
+          console.log("Averages data and user info saved to database");
+          alert("Submission successful!");
+
+          navigateTo('/dsm-5-tr/test/result');
+        } else {
+          console.error("No user data found.");
+        }
+      } catch (error) {
+        console.error("Error saving averages data and user info:", error);
+      }
+    })();
+
   };
 
   return (
@@ -351,7 +407,7 @@ export default function Test() {
               <Question question={question} />
             ))}
             <div className='h-[0.1rem] rounded-2xl my-14 w-full bg-gray-500'></div>
-            <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
+            <button id='submit-btn' type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
               Submit
             </button>
           </form>

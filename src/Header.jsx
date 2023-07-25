@@ -77,6 +77,7 @@ export default function Header() {
   // get the current location to hide the take the test button in the test page
   const location = useLocation(); 
   const hideButton = location.pathname === "/dsm-5-tr/test"; 
+  const hideButton2 = location.pathname === "/dsm-5-tr/test/result"; 
 
   // always show the navbar when screen size > 960px 
   useEffect(() => {
@@ -169,7 +170,7 @@ export default function Header() {
               null
             }
             {/* only show the button if hideButton is false */}
-            {!hideButton && ( 
+            {!hideButton && !hideButton2 && ( 
             <Link to={user ? "/dsm-5-tr/test" : "/what-is-dsm-5-tr"}>
               <button
                 type="button"

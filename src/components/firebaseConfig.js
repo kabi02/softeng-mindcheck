@@ -41,4 +41,33 @@ const getUserData = async (uid) => {
     }
   };
 
-export{app, analytics, db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, getUserData, set, ref};
+// Function to save the averages to the database
+const saveAveragesToDatabase = async (uid, averagesData) => {
+    try {
+    const averagesRef = ref(db, `averages/${uid}`);
+    await set(averagesRef, averagesData);
+    console.log("Averages data saved to database");
+    } catch (error) {
+    console.error("Error saving averages data to database:", error);
+    throw error;
+    }
+};
+
+const getAveragesData = async (uid) => {
+    try {
+      const averagesRef = ref(db, `averages/${uid}`);
+      const snapshot = await get(averagesRef);
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching averages data:", error);
+      return null;
+    }
+  };
+
+export{app, analytics, db, auth, createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, getUserData, set, ref, 
+    saveAveragesToDatabase, getAveragesData, get};

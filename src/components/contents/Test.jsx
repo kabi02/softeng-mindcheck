@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Title from "../Title";
 import Layout from "../Layout";
 import Question from "../Question"; // Import the Question component
@@ -125,6 +125,10 @@ export default function Test() {
       name: "p13-q3",
     },
   ];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Define a function to handle the form submission
   const handleSubmit = (event) => {

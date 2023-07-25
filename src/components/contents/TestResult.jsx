@@ -23,6 +23,7 @@ export default function TestResult() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     // Subscribe to Firebase auth state changes to wait for the user to be authenticated
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {

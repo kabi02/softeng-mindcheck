@@ -23,7 +23,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const db = getDatabase();
+const db = getDatabase(app);
 const auth = getAuth();
 
 const getUserData = async (uid) => {
@@ -41,4 +41,4 @@ const getUserData = async (uid) => {
     }
   };
 
-export{app, analytics, db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, getUserData};
+export{app, analytics, db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, getUserData, set, ref};

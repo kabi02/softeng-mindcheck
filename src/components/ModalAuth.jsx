@@ -16,7 +16,7 @@ import {
 } from "@material-tailwind/react";
 
 // Import Firebase app, analytics, and database from the separate file
-import { app, db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "./firebaseConfig";
+import { app, db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, getUserData, set, ref } from "./firebaseConfig";
 
 console.log(app);
 
@@ -60,10 +60,22 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
     console.log(email, password);
     if(document.getElementById("tnc").checked && document.getElementById("pp").checked) {
       createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log("Registered");        
+          console.log("Registered");  
+          // Save additional user info to the Realtime Database
+          try {
+            const userData = {
+              name: name,
+              email: email,
+              phone: phone,
+            };
+            await saveUserInfoToDatabase(user.uid, userData);
+          } catch (error) {
+            console.error("Error saving user info to database:", error);
+          }
+          
           // Switch to sign in modal
           handleSwitch("signin");
           // Open the modal
@@ -81,7 +93,17 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
     }
   }
 
-
+  // Function to save user info to the Realtime Database
+  const saveUserInfoToDatabase = async (uid, userData) => {
+    try {
+      const userRef = ref(db, `users/${uid}`);
+      await set(userRef, userData);
+      console.log("User info saved to database");
+    } catch (error) {
+      console.error("Error saving user info to database:", error);
+      throw error;
+    }
+  };
 
  
   return (

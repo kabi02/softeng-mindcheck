@@ -171,7 +171,7 @@ export default function Header() {
             }
             {/* only show the button if hideButton is false */}
             {!hideButton && !hideButton2 && ( 
-            <Link to={user ? "/dsm-5-tr/test" : "/what-is-dsm-5-tr"}>
+            <Link to={user ? "/what-is-dsm-5-tr/disclaimer" : "/what-is-dsm-5-tr"}>
               <button
                 type="button"
                 className='py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200 mb-10 lg:mb-0'   

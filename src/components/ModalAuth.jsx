@@ -34,14 +34,24 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
 
       if (email && password) {
         signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
           const user = userCredential.user;
-          alert("Signed in successfully!");
+          
+          // Fetch the user's data from the "users" table
+          const userData = await getUserData(user.uid);
 
-          // Notify the webpages that the user is logged in
-          setUserLoggedIn(user);
-
-          navigateTo('/dsm-5-tr/test');
+          // Check if the user is an admin based on the "isAdmin" field
+          if (userData && userData.isAdmin) {
+            // If the user is an admin, redirect to the admin dashboard
+            alert("You are logged in as an admin.");
+            setUserLoggedIn(user);
+            navigateTo('/dashboard'); // Replace this with the actual admin dashboard route
+          } else {
+            // If the user is a regular user, redirect to the test page
+            alert("You are logged in as a normal user.");
+            setUserLoggedIn(user);
+            navigateTo('/dsm-5-tr/test'); // Replace this with the actual test page route
+          }
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -70,6 +80,7 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
               name: name,
               email: email,
               phone: phone,
+              isAdmin: (false),
             };
             await saveUserInfoToDatabase(user.uid, userData);
           } catch (error) {

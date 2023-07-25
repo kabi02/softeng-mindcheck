@@ -89,7 +89,7 @@ export default function Disclaimer() {
                     user
                     ? 
                     <div className='flex mt-10 items-center justify-center'>
-                        <BlueBtn link='/dsm-5-tr/test/result' text='Start Assessment'/>
+                        <BlueBtn link='/dsm-5-tr/test' text='Start Assessment'/>
                     </div>
                     : 
                     <div className='flex mt-10 items-center justify-center'>                    

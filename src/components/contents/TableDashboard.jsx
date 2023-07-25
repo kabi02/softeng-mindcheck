@@ -66,11 +66,11 @@ export default function TableDashboard() {
               const resultData = [];
 
               return (
-                <tr key={userData.userId} className="tabletests">
-                  <td className="rounded-md sm:p-5 p-1">{userName}</td>
-                  <td className="rounded-md sm:p-5 p-1">{contactNumber}</td>
-                  <td className="rounded-md sm:p-5 p-1">{email}</td>
-                  <td className="rounded-md sm:p-5 p-1">
+                <tr key={userData.userId} className="tabletests text-white">
+                  <td className="rounded-md sm:py-2 sm:px-5 p-1 bg-[#9BA0BE]">{userName}</td>
+                  <td className="rounded-md sm:py-2 sm:px-5 p-1 bg-[#9BA0BE]">{contactNumber}</td>
+                  <td className="rounded-md sm:py-2 sm:px-5 p-1 bg-[#9BA0BE]">{email}</td>
+                  <td>
                       <ResultModal user={userName} iden={userData.userId}/>
                   </td>
                 </tr>

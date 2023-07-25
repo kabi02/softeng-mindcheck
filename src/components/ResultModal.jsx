@@ -46,7 +46,10 @@ export function ResultModal({user, iden}) {
  
   return (
     <>
-      <div onClick={handleOpen} className="cursor-pointer text-center">Show</div>
+      <div onClick={handleOpen} 
+      className="cursor-pointer text-center rounded-md sm:p-5 p-1 bg-[#9BA0BE] hover:bg-gradient-to-r hover:from-[rgba(99,143,255,1)] hover:to-[rgba(56,54,144,1)] font-bold hover:shadow-2xl 
+      transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+      >Show</div>
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader className="text-white rounded-lg py-7 justify-center bg-gradient-to-r from-[rgba(99,143,255,1)] to-[rgba(56,54,144,1)]">{user}'s Result</DialogHeader>
         <DialogBody divider className="scrollable-body">

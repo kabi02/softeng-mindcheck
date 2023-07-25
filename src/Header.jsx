@@ -135,12 +135,18 @@ export default function Header() {
           }
           <div className="order-2 lg:mb-0 flex lg:flex-row flex-col items-center">
             {/* USER */}
-            <FontAwesomeIcon icon={faUser} className="sm:text-3xl text-xl text-white mx-5 mt-1 lg:mb-0 mb-4 cursor-pointer lg:block hidden" onClick={toggleDiv}/>
+            <FontAwesomeIcon 
+            icon={faUser} 
+            className="sm:text-3xl text-xl text-white mx-5 mt-1 lg:mb-0 mb-4 cursor-pointer lg:block hidden
+                        hover:shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300" 
+            onClick={toggleDiv}/>
             {/* for showing the div if the user is clicked or screen is smaller than breakpoint*/}
             {showDiv || windowWidth < breakpoint 
             ? 
               <div className="p-4 rounded-xl sm:text-base text-sm text-white -mt-7
-                lg:absolute lg:mt-48 lg:mb-0 lg:bg-[#9BA0BE]">
+                lg:absolute lg:mt-48 lg:mb-0 lg:bg-[#9BA0BE]
+                hover:shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300
+                ">
                 <div className='h-[0.04rem] rounded-2xl my-4 w-full bg-white lg:hidden'></div>
                 <b className='text-lg my-2'>Account</b><br/>
                 <div className='h-[0.04rem] rounded-2xl my-3 w-full bg-white lg:block hidden'></div>
@@ -149,7 +155,7 @@ export default function Header() {
                 {user && ( // <-- Check if the user is logged in
                   <div id="name-logout-div">
                     <p className="my-2">{userName}</p>
-                    <h2 className="font-bold cursor-pointer" onClick={() => {
+                    <h2 className="font-bold cursor-pointer hover:shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300" onClick={() => {
                     logout(); // Logout function with alert inside AuthContext
                     navigateTo("/"); // Redirect to the path "/"
                   }}>Logout</h2>
@@ -173,8 +179,6 @@ export default function Header() {
                     />
                   </div>
                 )}
-
-
               </div> 
               : 
               null
@@ -184,7 +188,7 @@ export default function Header() {
             <Link to={user ? "/what-is-dsm-5-tr/disclaimer" : "/what-is-dsm-5-tr"}>
               <button
                 type="button"
-                className='py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200 mb-10 lg:mb-0'   
+                className='py-3 px-7 rounded-full bg-white font-open-sans font-bold hover:bg-gray-200 mb-10 lg:mb-0 hover:shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300'   
               >
                 {user ? "Go to Test" : "Take the Test"}
               </button>

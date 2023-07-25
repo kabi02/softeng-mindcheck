@@ -297,7 +297,7 @@ export default function Test() {
         </p>
 
         {/* button guides */}
-        <div className="grid grid-cols-5 gap-4 my-7 items-center justify-center">
+        <div className="grid grid-cols-5 sm:gap-4 gap-2 my-7 items-center justify-center sm:text-base text-xs">
           <div className="text-center">
             <b>None</b>
             <br />
@@ -328,7 +328,7 @@ export default function Test() {
       </div>
       <Layout>
         <div className="text-center sm:max-w-[80%] max-w-[90%] mx-auto py-10">
-          <form className="text-center font-bold py-3" onSubmit={handleSubmit}>
+          <form className="text-center font-bold" onSubmit={handleSubmit}>
             {/* Part I */}
             <h3 className="sm:text-2xl text-lg font-bold my-9">Part I.</h3>
             {questions.map((question) => (

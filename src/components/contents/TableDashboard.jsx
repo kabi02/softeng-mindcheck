@@ -70,7 +70,7 @@ export default function TableDashboard() {
         value: "63 917 123-4567",
       },
       {
-        value: "Yes",
+        value: "kyut@gmail.com",
       },
     ];
     let userName = first[0].value;
@@ -89,7 +89,7 @@ export default function TableDashboard() {
           <tr className='tabletests'>
             <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Name</th>
             <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Contact Number</th>
-            <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Guidance Visit</th>
+            <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Email</th>
             <th className='bg-[#F5F6FC] rounded-md sm:p-5 p-1'>Result</th>
           </tr>
           <ResultContext.Provider value={result}>

@@ -3,6 +3,8 @@ import Header from '../Header'
 import Layout from '../components/Layout'
 import Title from '../components/Title'
 import {ModalSignIn} from '../components/ModalAuth';
+import { useAuth } from '../components/AuthContext'
+import BlueBtn from '../components/BlueBtn';
 
 export default function Disclaimer() {
   // define a state variable for modal type
@@ -12,6 +14,10 @@ export default function Disclaimer() {
   function handleSwitch(type) {
     setModalType(type);
   }
+
+  // Get the user state from the AuthContext
+  const { user, logout } = useAuth();
+
   return (
     <div>
         <Header/>
@@ -79,9 +85,17 @@ export default function Disclaimer() {
                 <p className='mt-8'>If you have any questions or concerns regarding this Disclaimer Notice or the use of MindCheck, please contact us at Mindcheck@gmail.com.ph.</p>
 
                 {/* The button for opening modal */}
-                <div className='flex mt-10 items-center justify-center'>                    
-                    <ModalSignIn modalType={modalType} handleSwitch={handleSwitch} text='Start Assessment'/>
-                </div>
+                {
+                    user
+                    ? 
+                    <div className='flex mt-10 items-center justify-center'>
+                        <BlueBtn link='/dsm-5-tr/test/result' text='Start Assessment'/>
+                    </div>
+                    : 
+                    <div className='flex mt-10 items-center justify-center'>                    
+                        <ModalSignIn modalType={modalType} handleSwitch={handleSwitch} text='Start Assessment'/>
+                    </div>
+                }
 
             </div>
         </Layout>

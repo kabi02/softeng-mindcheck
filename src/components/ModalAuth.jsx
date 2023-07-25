@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import BlueBtn from '../components/BlueBtn'
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
 import {
   Button,
   Dialog,
@@ -12,33 +15,8 @@ import {
   Checkbox,
 } from "@material-tailwind/react";
 
-import { getAuth, createUserWithEmailAndPassword,  signInWithEmailAndPassword } from "firebase/auth";
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { Link } from "react-router-dom";
-import { getDatabase, ref, push, set, get} from "firebase/database";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../components/AuthContext";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAofR0_tQPc2Cvz5JO-DfCY43TKXGRBPbY",
-  authDomain: "softeng-mindcheck.firebaseapp.com",
-  projectId: "softeng-mindcheck",
-  storageBucket: "softeng-mindcheck.appspot.com",
-  messagingSenderId: "540338321211",
-  appId: "1:540338321211:web:cb28c9b96be1354c4f691e",
-  measurementId: "G-H788E2H82D"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getDatabase();
+// Import Firebase app, analytics, and database from the separate file
+import { app, db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "./firebaseConfig";
 
 console.log(app);
 
@@ -51,7 +29,6 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
   const handleOpen = () => setOpen((cur) => !cur);
 
   function signIn () {
-      const auth = getAuth();
       var email = document.getElementById("sign-email").value;
       var password = document.getElementById("sign-password").value;
 
@@ -76,7 +53,6 @@ export const ModalSignIn = ({ modalType, handleSwitch, text, style }) => {
   }
 
   function signUpWithPassword() {
-    const auth = getAuth();
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var name = document.getElementById("name").value;

@@ -6,6 +6,10 @@ import React, { useState, useEffect } from "react";
 import {ModalSignIn} from './components/ModalAuth'
 import { useAuth } from "./components/AuthContext";
 import { useNavigate } from "react-router-dom";
+
+//firebase imports
+import { getUserData } from './components/firebaseConfig';
+
 // for the icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -42,6 +46,23 @@ export default function Header() {
   // Get the user state from the AuthContext
   const { user, logout } = useAuth();
   const navigateTo = useNavigate();
+
+
+  const [userName, setUserName] = useState(null);
+
+  // Function to fetch and set the user's name based on UID
+  const fetchUserName = async () => {
+    if (user) {
+      const userData = await getUserData(user.uid);
+      if (userData && userData.name) {
+        setUserName(userData.name);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchUserName(); // Fetch the user's name when the component mounts and whenever the user changes
+  }, [user]);
 
   const breakpoint = 960; // in mobile view if in lg screen size
   const windowWidth = useWindowWidth(); // get window width
@@ -116,7 +137,7 @@ export default function Header() {
                 {/* Show the div only if the user is logged in */}
                 {user && ( // <-- Check if the user is logged in
                   <div id="name-logout-div">
-                    <p className="my-2">Very Cool Name</p>
+                    <p className="my-2">{userName}</p>
                     <h2 className="font-bold cursor-pointer" onClick={() => {
                     logout(); // Logout function with alert inside AuthContext
                     navigateTo("/"); // Redirect to the path "/"

@@ -117,9 +117,13 @@ export default function Header() {
       </div>
       {/* Show the navlinks if showMenu is true */}
       {showMenu && (
-        <div className="w-full order-2 lg:text-lg text-base flex lg:flex-row flex-col justify-between xl:justify-center items-center text-center 2xl:gap-16 gap-5 lg:px-9 mx-auto">
-          {/* dont show to admin user */}
-          {
+        <div className={`w-full order-2 lg:text-lg text-base flex lg:flex-row flex-col items-center text-center 2xl:gap-16 gap-5 lg:px-9 mx-auto
+          ${!hideButton1 
+          ? 'justify-between xl:justify-center'
+          : 'justify-end'
+          }         
+        `}>
+          { //dont show to admin user
             !hideButton1 && (
               <ul className="flex lg:flex-row flex-col font-open-sans xl:gap-16 lg:gap-7 gap-2 text-white">
                 <Li text="Scoring Guide" link="/scoring-guide" />
